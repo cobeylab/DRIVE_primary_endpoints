@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+*.RData
+.Ruserdata
+.DS_Store
+data/
+data-raw/
+figures/
+specimen_selection/
+bayesian_fits_real_data/processed_data.csv
+*.pdf
+out_err_files/
+*.err
+*.out
+*inference_results*.csv
+*combined_results.csv
+*.rds
