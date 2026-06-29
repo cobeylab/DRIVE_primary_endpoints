@@ -8,6 +8,7 @@ data-raw/
 figures/
 specimen_selection/
 bayesian_fits_real_data/processed_data.csv
+NAI_inferred_infections/
 *.pdf
 out_err_files/
 *.err
