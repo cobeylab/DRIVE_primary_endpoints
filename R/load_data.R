@@ -27,16 +27,14 @@ HAI_titers_batches_1to4_files <- list.files(path = file.path(data_folder_path, "
 HAI_titers_batches_5to7_file <- file.path(data_folder_path, "HAI_titers/batches_5-7/HAI_titers_batches_5-7.csv")
 
 luminex_file <- file.path(data_folder_path, "Luminex/DRIVE_year3_luminex_results_summary.csv")
-# Luminex by isotype (to get subclass proportions)
-luminex_by_isotype_file <- file.path(data_folder_path, "Luminex/luminex_by_isotype/luminex_by_isotype_Y3.csv")
 
 # Dates of covid vaccination (DRIVE-I only)
 cov2_vdates_file <- file.path(data_folder_path, "participant_data/DRIVE_1_covid_vaxdates.csv")
 
 HK_flu_surveillance_file <- file.path(data_folder_path, "Infections/HK_govt_flu_surveillance.csv")
 
-NAI_infections_H1N1_path <- "NAI_inferred_infections/Inferred_N1_infections.csv"
-NAI_infections_H3N2_path <- "NAI_inferred_infections/Inferred_N2_infections.csv"
+NAI_infections_H1N1_path <- "results/NAI_inferred_infections/Inferred_N1_infections.csv"
+NAI_infections_H3N2_path <- "results/NAI_inferred_infections/Inferred_N2_infections.csv"
 
 timepoint_days_and_covariates_DRIVE1_file <- file.path(data_folder_path, "participant_data/DRIVE_1_timepoint_days_and_other_covariates.csv")
 timepoint_days_and_covariates_DRIVE2_file <- file.path(data_folder_path, "participant_data/DRIVE_2_timepoint_days_and_other_covariates.csv")

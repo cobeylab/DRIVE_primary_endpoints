@@ -1060,7 +1060,7 @@ fig4 <- make_inferred_infections_fig(
 )
 
 # Note: Figure numbering here is specific to this script, does not match numbering in the manuscript
-figure_dir <- "figures/NAI_inferred_infections/"
+figure_dir <- "results/NAI_inferred_infections/"
 dir.create(figure_dir, recursive = T, showWarnings = F)
 
 ggsave(
@@ -1101,5 +1101,5 @@ ggsave(
 
 # Export list of inferred infections 
 dir.create("NAI_inferred_infections", showWarnings = F)
-write.csv(N1_possible_infections, "NAI_inferred_infections/Inferred_N1_infections.csv", row.names = F)
-write.csv(N2_possible_infections, "NAI_inferred_infections/Inferred_N2_infections.csv", row.names = F)
+write.csv(N1_possible_infections, "results/NAI_inferred_infections/Inferred_N1_infections.csv", row.names = F)
+write.csv(N2_possible_infections, "results/NAI_inferred_infections/Inferred_N2_infections.csv", row.names = F)
