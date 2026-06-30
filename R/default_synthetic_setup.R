@@ -3,7 +3,7 @@ source("R/base_functions.R")
 source("R/bayesian_model_functions.R")
 
 # Load data scaffold
-data_scaffold <- read_csv("synthetic_data_experiments/data_scaffold.csv") 
+data_scaffold <- read_csv("results/synthetic_data_experiments/data_scaffold.csv") 
 
 RVE_model <- fully_flexible_RVE_model
 

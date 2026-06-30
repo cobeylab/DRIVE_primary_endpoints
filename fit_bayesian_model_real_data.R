@@ -56,7 +56,7 @@ if (!file.exists(fit_specs_path)) {
 source(fit_specs_path)
 
 # Read processed data
-input_data <- read_csv("bayesian_fits_real_data/processed_data.csv")
+input_data <- read_csv("results/bayesian_fits_real_data/processed_data.csv")
 
 
 if(!is.null(fit_specs$RVE_model)){

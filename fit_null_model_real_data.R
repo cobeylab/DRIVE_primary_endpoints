@@ -21,7 +21,7 @@ if (is.na(holdout_index) || holdout_index < 0) {
 # as unit type (1 = individual/strain/year, 2 = individual)
 loglik_unit <-  1 
 
-null_model_dir <- "null_model_fits_real_data/null_specific_model/no_individual_effects/"
+null_model_dir <- "results/null_model_fits_real_data/null_specific_model/no_individual_effects/"
 dir.create(null_model_dir, recursive = TRUE, showWarnings = FALSE)
 
 # Early exit if LOO output already exists (avoid running Stan)
@@ -45,7 +45,7 @@ if (holdout_index > 0) {
 
 
 # Read processed data
-input_data <- read_csv("bayesian_fits_real_data/processed_data.csv")
+input_data <- read_csv("results/bayesian_fits_real_data/processed_data.csv")
 
 # Downstream functions require a specification of RVE levels. 
 # We'll use an arbitrary model, but this won't matter for the null model
