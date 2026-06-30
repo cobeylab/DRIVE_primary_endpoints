@@ -1060,13 +1060,13 @@ fig4 <- make_inferred_infections_fig(
 )
 
 # Note: Figure numbering here is specific to this script, does not match numbering in the manuscript
-figure_dir <- "results/NAI_inferred_infections/"
-dir.create(figure_dir, recursive = T, showWarnings = F)
+results_dir <- "results/NAI_inferred_infections/"
+dir.create(results_dir, recursive = T, showWarnings = F)
 
 ggsave(
   filename = "NAI_fold_change_PCR_confirmed.pdf",
   plot = fig1,
-  path = figure_dir,
+  path = results_dir,
   width = supp_fig_witdh_full,
   height = 3.25/1.4,
   units = "in"
@@ -1075,7 +1075,7 @@ ggsave(
 ggsave(
   filename = "NAI_sensitivity_specificity.pdf",
   plot = fig2,
-  path = figure_dir,
+  path = results_dir,
   width = supp_fig_witdh_full,
   height = 3.25/1.4,
   units = "in"
@@ -1084,7 +1084,7 @@ ggsave(
 ggsave(
   filename = "NAI_inferred_infections_H1.pdf",
   plot = fig3,
-  path = figure_dir,
+  path = results_dir,
   width = supp_fig_witdh_full,
   height = 5.5,
   units = "in"
@@ -1093,13 +1093,12 @@ ggsave(
 ggsave(
   filename = "NAI_inferred_infections_H3.pdf",
   plot = fig4,
-  path = figure_dir,
+  path = results_dir,
   width = supp_fig_witdh_full,
   height = 5.5,
   units = "in"
 )
 
 # Export list of inferred infections 
-dir.create("NAI_inferred_infections", showWarnings = F)
 write.csv(N1_possible_infections, "results/NAI_inferred_infections/Inferred_N1_infections.csv", row.names = F)
 write.csv(N2_possible_infections, "results/NAI_inferred_infections/Inferred_N2_infections.csv", row.names = F)
