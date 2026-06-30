@@ -62,7 +62,7 @@ param_labeller <- function(parameters){
 }
 
 # Get all experiment directories within synthetic_data_experiments/ that contain combined_results.csv
-base_dir <- "synthetic_data_experiments"
+base_dir <- "results/synthetic_data_experiments"
 experiment_dirs <- list.dirs(base_dir, recursive = FALSE, full.names = TRUE)
 # Experiment directories are one level deeper (i.e., subdirectories of subdirectories of base_dir)
 experiment_dirs <- list.dirs(base_dir, recursive = FALSE, full.names = TRUE) %>%
