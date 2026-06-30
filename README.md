@@ -28,6 +28,8 @@ Code for Vieira et al, Repeated annual vaccination attenuates influenza vaccine 
 
 2.7 `run_LOO.sh` performs leave-one-out cross-validation on a SLURM-based cluster given a directory with a fit specification file, automatically calling either `fit_bayesian_model_real_data.R` or `fit_null_model_real_data.R` as appropriate. `combine_LOO_output_files.sh` combines the results across held-out units to produce a single `combined_results.csv` file with cross-validation results for a given model configuration.
 
+2.8 `model_comparison_full_data.R` and `model_comparison_LOO.R` plot performance comparisons for models fitted to the full data (Fig. S19) or in leave-one-out cross-validation (Figs. S15, S16, S18 and S21).
+
 
 
 
