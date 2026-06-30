@@ -22,8 +22,7 @@ Code for Vieira et al, Repeated annual vaccination attenuates influenza vaccine 
 
 2.4 `process_synth_data_experiments.R` looks in `results/synthetic_data_experiments/` for experiment directories that have `combined_results.csv` files and, for each experiment, plots summaries of the model inference across replicate synthetic datasets.
 
-
-
+2.5 `fit_bayesian_model_real_data.R` fits the Bayesian hierarchical model to the real (as opposed to synthetic) data, given a directory in `results/bayesian_fits_real_data` containing a specification file `fit_specs.R`. The specification file controls which version of the model is fitted, what covariates and individual effects are are included, and whether informative priors are put on the population distribution of latent pre-vaccination titers. `run_bayesian_fits_real_data.sh` calls `fit_bayesian_model_real_data.R` to perform fits to the entire data set in a SLURM-based cluster.
 
 
 
