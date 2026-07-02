@@ -1784,7 +1784,7 @@ plot_model_predictions_by_timepoint <- function(data, model_results, year, censo
                  alpha = 0.3,
                  # Tweak x to shift the boxplot of model predictions left or right
                  position = position_nudge(x = 0.15, y = 0), outlier.alpha = 0,
-                 box.linewidth = boxplot_line_width * 0.4, median.linewidth =  boxplot_line_width * 1.5) +
+                 box.linewidth = boxplot_line_width, median.linewidth =  boxplot_line_width * 1.5) +
     scale_color_manual(name = NULL, values = c("Model prediction" = "#fe7b3f")) +
     guides(color = guide_legend(override.aes = list(fill = NA))) +
     theme(legend.position = "top")
@@ -2255,7 +2255,7 @@ make_abs_error_pl <- function(model_residuals_summary, xvar){
     geom_point(size = 1.5, position = position_dodge(width = 0.5)) +
     geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2,
                   position = position_dodge(width = 0.5),
-                  linewidth = boxplot_line_width) +
+                  linewidth = boxplot_line_width * 2) +
     baseline_figure_settings +
     ylab("Absolute censored error\n(mean, IQR)")
 
@@ -2279,7 +2279,7 @@ make_percent_within_2fold_pl <- function(model_residuals_summary, xvar){
     ggplot(aes(x = .data[[xvar]], y = fraction_within_2fold * 100, fill = Hpre_priors, group = Hpre_priors)) +
     geom_col(position = position_dodge(width = 0.5), width = default_col_width) +
     geom_errorbar(aes(ymin = fraction_within_2fold_lower * 100, ymax = fraction_within_2fold_upper * 100), position = position_dodge(width = 0.5),
-                  width = 0.3, linewidth = boxplot_line_width) + 
+                  width = 0.3, linewidth = boxplot_line_width * 2) + 
     geom_text(aes(y = fraction_within_2fold_upper * 100 + 3,
               label = percent_within_2fold_label),
               position = position_dodge(width = 0.5),
@@ -2310,7 +2310,7 @@ make_percent_identical_pl <- function(model_residuals_summary, xvar){
     ggplot(aes(x = .data[[xvar]], y = fraction_identical * 100, fill = Hpre_priors, group = Hpre_priors)) +
     geom_col(position = position_dodge(width = 0.5), width = default_col_width) +
     geom_errorbar(aes(ymin = fraction_identical_lower * 100, ymax = fraction_identical_upper * 100), position = position_dodge(width = 0.5),
-                  width = 0.3, linewidth = boxplot_line_width) +
+                  width = 0.3, linewidth = boxplot_line_width * 2) +
     geom_text(aes(y = fraction_identical_upper * 100 + 3, label = percent_identical_label), ,
               position = position_dodge(width = 0.5),
               size = default_figure_font_size, size.unit = "pt") +

@@ -760,7 +760,7 @@ plot_postvax_response <- function(response_data, response_var,
       mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
       mutate(timepoint = relabel_timepoint(timepoint)) %>%
       ggplot(aes(x = treatment, y = .data[[response_var]])) +
-      geom_boxplot(outlier.alpha = 0, aes(fill = treatment), box.linewidth = boxplot_line_width * 0.4, median.linewidth =  boxplot_line_width * 1.5)
+      geom_boxplot(outlier.alpha = 0, aes(fill = treatment), box.linewidth = boxplot_line_width, median.linewidth =  boxplot_line_width * 1.5)
 
     if(show_points){
       base_pl <- base_pl +
@@ -1014,7 +1014,7 @@ plot_years_3_4_postvax <- function(response_data, response_var, p.adjust.method 
     base_pl <- input_data %>% 
       ggplot(aes(x = factor(timepoint), y = .data[[response_var]], fill = factor(n_prior_vax))) +
       geom_boxplot(position = position_dodge(width = 0.8), outlier.alpha = 0,
-                   box.linewidth = boxplot_line_width * 0.4, median.linewidth =  boxplot_line_width * 1.5) +
+                   box.linewidth = boxplot_line_width, median.linewidth =  boxplot_line_width * 1.5) +
       geom_jitter(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.8),
             alpha = main_text_alpha, size = main_text_point_size, stroke = boxplot_point_stroke,
             shape = boxplot_point_shape, show.legend = FALSE) +
@@ -1368,7 +1368,7 @@ boxplot_point_size <- 0.8
 boxplot_point_alpha <- 0.4
 boxplot_point_stroke <- 2
 boxplot_point_shape <- 16
-boxplot_line_width <- 0.5
+boxplot_line_width <- 0.2
 
 default_col_width <- 0.5
 

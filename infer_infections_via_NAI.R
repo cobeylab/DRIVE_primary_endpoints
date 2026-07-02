@@ -3,6 +3,8 @@ library(tidyverse)
 library(lubridate)
 library(ggtext)
 library(patchwork)
+library(cowplot)
+theme_set(theme_cowplot())
 
 # Bulk of code by A.S.
 
@@ -911,14 +913,13 @@ point_size <- 1
 line_size <- 1
 
 fc_comp <- ggplot()  +
-  geom_boxplot(data = df_fc, aes(x = group, y = value), outliers = F) +
+  geom_boxplot(data = df_fc, aes(x = group, y = value), outliers = F, box.linewidth = boxplot_line_width) +
   geom_jitter(data = df_fc, aes(x = group, y = value),
-              width = 0.1, alpha = 0.8, size = point_size) +
+              width = 0.1, alpha = 0.8, size = point_size, shape = 16) +
   labs(x = "PCR-confirmed infection", 
        y = "NAI fold change (log<sub>2</sub>)") +
-  annotate("text", x = 1.5, y = max(df_fc$value)*0.95, 
-           label = paste("p =", signif(p_value_fc, digits = 2)), size = anno_text) +
-  theme_bw() +
+  # annotate("text", x = 1.5, y = max(df_fc$value)*0.95, 
+  #         label = paste("p =", signif(p_value_fc, digits = 2)), size = anno_text) +
   guides(color = "none") +
   theme(
     axis.text.x = element_text(size = axis_text),
@@ -944,17 +945,16 @@ antibody_ceiling <- ggplot() +
              aes(log(titer_before_infection, base = 2), log(fold_change_during_infection, base = 2), 
                  shape = factor(antigen)),
              #color = pID), 
-             size = point_size, stroke = 2) +
-  scale_shape_manual(values = c(1,5)) +
-  theme_bw() +
+             size = point_size, stroke = 1) +
+  scale_shape_manual(values = c(16, 17)) +
   geom_smooth(data = NAI_pcr_confirmed_upd,
               aes(log(titer_before_infection, base = 2), log(fold_change_during_infection, base = 2)),
-              method = "lm", se = T, colour = "black", linewidth = 1) + 
-  annotate("text",
-           x = 5.2, y = 5.6,
-           label = lab_corr,
-           hjust = 0, vjust = 0,
-           size = anno_text) +
+              method = "lm", se = T, colour = "black", linewidth = 0.7) + 
+  # annotate("text",
+  #          x = 5.2, y = 5.6,
+  #          label = lab_corr,
+  #          hjust = 0, vjust = 0,
+  #          size = anno_text) +
   labs(x = "NAI titer before infection (log<sub>2</sub>)",
        y = "", shape = "antigen") +
   theme(
@@ -966,7 +966,8 @@ antibody_ceiling <- ggplot() +
     legend.text = element_text(size = legend_text),
     legend.title = element_blank(),
     legend.key.size = unit(0.5, "cm"),
-    panel.grid = element_blank()
+    panel.grid = element_blank(),
+    legend.position = c(0.8,0.9)
   ) 
 
 #fig 1 - NAI analysis
