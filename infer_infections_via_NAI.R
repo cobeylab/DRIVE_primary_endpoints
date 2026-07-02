@@ -4,6 +4,7 @@ library(lubridate)
 library(ggtext)
 library(patchwork)
 library(cowplot)
+library(ISOweek)
 theme_set(theme_cowplot())
 
 # Bulk of code by A.S.
@@ -513,14 +514,28 @@ quarterly_jan_breaks <- function(limits) {
 make_inferred_infections_fig <- function(low_circ, time_of_infection_sub,
                                          color_key, surv_subtype, y_axis_name) {
 
+  # Compute monthly counts from the original infection_date, before the ISO-week snap below,
+  # so infections aren't reassigned to a different month by the snap.
   n_infections_by_month <- time_of_infection_sub %>%
     select(infection_date) %>%
+    mutate(infection_date = as.Date(as.numeric(infection_date))) %>%
     filter(!is.na(infection_date)) %>%
     # Recode all infection dates as the first day of the corresponding year/month
     mutate(infection_date = paste(year(infection_date), month(infection_date), "1", sep = "-") %>% ymd()) %>%
     group_by(infection_date) %>%
     count() %>%
     ungroup()
+
+  # Snap a Date vector to the first day (Monday) of its ISO week, preserving NAs.
+  snap_to_iso_week_start <- function(d) {
+    iso <- ISOweek::ISOweek(d)
+    ISOweek::ISOweek2date(ifelse(is.na(iso), NA_character_, paste0(iso, "-1")))
+  }
+
+  # Snap timepoint_date and infection_date to the first day (Monday) of their ISO week for plotting
+  time_of_infection_sub <- time_of_infection_sub %>%
+    mutate(timepoint_date = snap_to_iso_week_start(timepoint_date),
+           infection_date = snap_to_iso_week_start(as.Date(as.numeric(infection_date))))
 
   inferred_inf_dates <- ggplot() +
     geom_rect(data = low_circ,
@@ -554,7 +569,7 @@ make_inferred_infections_fig <- function(low_circ, time_of_infection_sub,
               aes(timepoint_date, log(estimated_titer, base = 2)*scale_factor, group = pID),
               color = subtype_colors[color_key], alpha = 0.6, size = 0.3*line_size) +
     geom_point(data = time_of_infection_sub,
-               aes(x = as.Date(as.numeric(infection_date)), y = log(titer_est, base = 2)*scale_factor),
+               aes(x = infection_date, y = log(titer_est, base = 2)*scale_factor),
                size = point_size, alpha = 0.6) +
     theme(axis.text.x = element_text(size = axis_text)) +
     scale_x_date(
