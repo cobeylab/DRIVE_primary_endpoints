@@ -227,32 +227,47 @@ write_csv(VVVV_comparisons_Y4, "results/endpoint_analyses/VVVV_comparisons_Y4.cs
 titers_plot_y2 <- plot_postvax_response(response_data = titers,
                                         response_var = 'log2_titer',
                                         year = 2) +
-  ylab("Antibody titer")
+  ylab("Antibody titer") +
+  theme(legend.position = "none")
 
 save_plot("results/endpoint_analyses/Y2_postvax_titers.pdf",
-          titers_plot_y2 + theme(legend.position = "none"),
+          titers_plot_y2,
           base_height = supp_fig_height_full / 1.7,
-          base_width = supp_fig_witdh_full)  
+          base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y2_postvax_titers.png",
+          titers_plot_y2,
+          base_height = supp_fig_height_full / 1.7,
+          base_width = supp_fig_witdh_full, dpi = 300)
                                       
 titers_plot_y3 <- plot_postvax_response(response_data = titers,
                                         response_var = 'log2_titer',
                                         year = 3)  +
-  ylab("Antibody titer")
+  ylab("Antibody titer") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 save_plot("results/endpoint_analyses/Y3_postvax_titers.pdf",
-          titers_plot_y3 + theme(axis.text.x = element_text(angle = 45, hjust = 1)),
+          titers_plot_y3,
           base_height = supp_fig_height_full,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y3_postvax_titers.png",
+          titers_plot_y3,
+          base_height = supp_fig_height_full,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 titers_plot_y4 <- plot_postvax_response(response_data = titers,
                                         response_var = 'log2_titer',
                                         year = 4)  +
-  ylab("Antibody titer")
+  ylab("Antibody titer") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 save_plot("results/endpoint_analyses/Y4_postvax_titers.pdf",
-          titers_plot_y4 + theme(axis.text.x = element_text(angle = 45, hjust = 1)),
+          titers_plot_y4,
           base_height = supp_fig_height_full,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y4_postvax_titers.png",
+          titers_plot_y4,
+          base_height = supp_fig_height_full,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 titers_plot_y4_days0_30_182 <- plot_postvax_response(
   response_data = titers %>% filter(timepoint %in% c(0, 30, 182)),
@@ -261,14 +276,14 @@ titers_plot_y4_days0_30_182 <- plot_postvax_response(
 
 # Main text figure combining years 3 and 4
 years_3_4_postvax <- plot_years_3_4_postvax(titers, response_var = "log2_titer") +
-  ylab("Antibody titer")
+  ylab("Antibody titers")
 
 save_plot("results/endpoint_analyses/years_3_4_postvax_titers.pdf",
-          years_3_4_postvax + ylab("Antibody titers"),
+          years_3_4_postvax,
           base_height = 4.3, base_width = main_text_width_full)
 
 save_plot("results/endpoint_analyses/years_3_4_postvax_titers.svg",
-          years_3_4_postvax + ylab("Antibody titers"),
+          years_3_4_postvax,
           base_height = 4.3, base_width = main_text_width_full)
 
 
@@ -287,16 +302,28 @@ save_plot("results/endpoint_analyses/Y2_fraction_fourfold_or_greater.pdf",
           y2_fraction_fourfold_or_greater,
           base_height = supp_fig_height_full - 2,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y2_fraction_fourfold_or_greater.png",
+          y2_fraction_fourfold_or_greater,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 save_plot("results/endpoint_analyses/Y3_fraction_fourfold_or_greater.pdf",
           y3_fraction_fourfold_or_greater,
           base_height = supp_fig_height_full - 2,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y3_fraction_fourfold_or_greater.png",
+          y3_fraction_fourfold_or_greater,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 save_plot("results/endpoint_analyses/Y4_fraction_fourfold_or_greater.pdf",
           y4_fraction_fourfold_or_greater,
           base_height = supp_fig_height_full - 2,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y4_fraction_fourfold_or_greater.png",
+          y4_fraction_fourfold_or_greater,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 # Fraction of participants titers at or above 40
 y2_fraction_titer_40_or_greater <- plot_fraction_by_group(
@@ -313,16 +340,28 @@ save_plot("results/endpoint_analyses/Y2_fraction_titer_40_or_greater.pdf",
           y2_fraction_titer_40_or_greater,
           base_height = supp_fig_height_full - 2,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y2_fraction_titer_40_or_greater.png",
+          y2_fraction_titer_40_or_greater,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 save_plot("results/endpoint_analyses/Y3_fraction_titer_40_or_greater.pdf",
           y3_fraction_titer_40_or_greater,
           base_height = supp_fig_height_full - 2,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y3_fraction_titer_40_or_greater.png",
+          y3_fraction_titer_40_or_greater,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 save_plot("results/endpoint_analyses/Y4_fraction_titer_40_or_greater.pdf",
           y4_fraction_titer_40_or_greater,
           base_height = supp_fig_height_full - 2,
           base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y4_fraction_titer_40_or_greater.png",
+          y4_fraction_titer_40_or_greater,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
 
 
 # Plotting FRNT titers to H1N1 in year 4 separately
@@ -331,6 +370,7 @@ Y4_postvax_H1N1_FRNT <- plot_postvax_response(response_data = H1N1_FRNT_titers, 
   ylab('FRNT titer')
 
 save_plot("results/endpoint_analyses/Y4_postvax_H1N1_FRNT.pdf", Y4_postvax_H1N1_FRNT, base_height = 6, base_width = 6)
+save_plot("results/endpoint_analyses/Y4_postvax_H1N1_FRNT.png", Y4_postvax_H1N1_FRNT, base_height = 6, base_width = 6, dpi = 300)
 
 
 # Same for HAI titers to H3N2 in year 4
@@ -339,6 +379,7 @@ Y4_postvax_H3N2_HAI <- plot_postvax_response(response_data = H3N2_HAI_titers, re
   ylab('HAI titer')
 
 save_plot("results/endpoint_analyses/Y4_postvax_H3N2_HAI.pdf", Y4_postvax_H3N2_HAI, base_height = 8, base_width = 5)
+save_plot("results/endpoint_analyses/Y4_postvax_H3N2_HAI.png", Y4_postvax_H3N2_HAI, base_height = 8, base_width = 5, dpi = 300)
 
 Y4_fraction_titer_40_or_greater_H3N2_HAI <- plot_fraction_by_group(H3N2_HAI_titers, response_var = "titer_40_or_greater", year = 4) +
   ylab(expression("Fraction of participants with HAI titers " >= "40"))
@@ -350,14 +391,13 @@ save_plot(
   base_width = supp_fig_witdh_full
 )
 
-# Same as above, but as a png (easier to import in correct size for Google Doc)
 ggsave(
   filename = "results/endpoint_analyses/Y4_fraction_titer_40_or_greater_H3N2_HAI.png",
   plot = Y4_fraction_titer_40_or_greater_H3N2_HAI,
-  width = supp_fig_witdh_full / 2,
-  height = supp_fig_height_full / 2,
+  height = supp_fig_height_full / 3,
+  width = supp_fig_witdh_full,
   units = "in",
-  dpi = 500
+  dpi = 300
 )
 
 #========== Analysis of Luminex titers =========
@@ -368,8 +408,13 @@ luminex_vax_plot <- plot_postvax_response(luminex_vax_strains,
 save_plot("results/endpoint_analyses/Y3_postvax_luminex_vax_strains.pdf",
           luminex_vax_plot,
           base_height = supp_fig_height_full - 2,
-          base_width = supp_fig_witdh_full)                                          
+          base_width = supp_fig_witdh_full)
+save_plot("results/endpoint_analyses/Y3_postvax_luminex_vax_strains.png",
+          luminex_vax_plot,
+          base_height = supp_fig_height_full - 2,
+          base_width = supp_fig_witdh_full, dpi = 300)
                 
 # total luminex vs titers
 luminex_vs_titers_plot <- plot_luminex_vs_titer_correlations(titers, luminex_vax_strains)
 save_plot("results/endpoint_analyses/luminex_vs_titers.pdf", luminex_vs_titers_plot, base_height = 8, base_width = 8)
+save_plot("results/endpoint_analyses/luminex_vs_titers.png", luminex_vs_titers_plot, base_height = 8, base_width = 8, dpi = 300)
