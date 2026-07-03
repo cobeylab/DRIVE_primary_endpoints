@@ -768,7 +768,7 @@ plot_postvax_response <- function(response_data, response_var,
       mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
       mutate(timepoint = relabel_timepoint(timepoint)) %>%
       ggplot(aes(x = treatment, y = .data[[response_var]])) +
-      geom_boxplot(outlier.alpha = 0, aes(fill = treatment), box.linewidth = boxplot_line_width, median.linewidth =  boxplot_line_width * 1.5)
+      geom_boxplot(outlier.alpha = 0, aes(fill = treatment), box.linewidth = boxplot_line_width, median.linewidth =  boxplot_median_width)
 
     if(show_points){
       base_pl <- base_pl +
@@ -902,7 +902,7 @@ plot_fraction_by_group <- function(input_data, response_var, year,
     mutate(treatment = factor(treatment, levels = treatment_levels)) %>%
     mutate(timepoint = relabel_timepoint(timepoint)) %>%
     ggplot(aes(x = treatment, y = .data[[fraction_var_name]])) +
-    geom_col(aes(fill = treatment), color = 'gray40') +
+    geom_col(aes(fill = treatment), color = 'gray40', linewidth = boxplot_line_width) +
     facet_grid(subtype ~ timepoint) +
     labs(
       y = ylabel, 
@@ -1022,7 +1022,7 @@ plot_years_3_4_postvax <- function(response_data, response_var, p.adjust.method 
     base_pl <- input_data %>% 
       ggplot(aes(x = factor(timepoint), y = .data[[response_var]], fill = factor(n_prior_vax))) +
       geom_boxplot(position = position_dodge(width = 0.8), outlier.alpha = 0,
-                   box.linewidth = boxplot_line_width, median.linewidth =  boxplot_line_width * 1.5) +
+                   box.linewidth = boxplot_line_width, median.linewidth =  boxplot_median_width) +
       geom_jitter(position = position_jitterdodge(jitter.width = 0.2, dodge.width = 0.8),
             alpha = main_text_alpha, size = main_text_point_size, stroke = boxplot_point_stroke,
             shape = boxplot_point_shape, show.legend = FALSE) +
@@ -1377,6 +1377,7 @@ boxplot_point_alpha <- 0.4
 boxplot_point_stroke <- 2
 boxplot_point_shape <- 16
 boxplot_line_width <- 0.2
+boxplot_median_width <- 0.75
 
 default_col_width <- 0.5
 
