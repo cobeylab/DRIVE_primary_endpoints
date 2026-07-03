@@ -4,6 +4,14 @@ original_dilutions <- c(5, 10, 20, 40, 80, 160, 320, 640, 1280) # Original dilut
 
 
 # ==== Functions ====
+
+# Snap a Date vector to the first day (Monday) of its ISO week, preserving NAs.
+# Intended for plotting only, not for calculations.
+snap_to_iso_week_start <- function(d) {
+  iso <- ISOweek::ISOweek(d)
+  ISOweek::ISOweek2date(ifelse(is.na(iso), NA_character_, paste0(iso, "-1")))
+}
+
 annotate_calendar_year <- function(data){
   calendar_year_link <- 
     bind_rows(

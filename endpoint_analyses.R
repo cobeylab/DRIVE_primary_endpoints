@@ -74,6 +74,13 @@ midpoint_vaccination_dates <- vaccination_times %>%
   group_by(year) %>%
   summarise(midpoint_vdate = min(year_vdate) + (max(year_vdate) - min(year_vdate)) / 2)
 
+# For plotting only: each round spans from the first day of the ISO week of its
+# earliest vaccination to the first day of the ISO week of its latest vaccination.
+round_vaccination_spans <- vaccination_times %>%
+  group_by(year) %>%
+  summarise(xmin = snap_to_iso_week_start(min(year_vdate)),
+            xmax = snap_to_iso_week_start(max(year_vdate)))
+
 drive_1_flu_infection_dates <- positive_pcr_tests %>%
   filter(str_detect(pID, "D1"), result != "cov2_positive") %>%
   arrange(cdate)
@@ -106,12 +113,11 @@ HK_flu_timeseries <- HK_flu_surveillance %>%
     )) %>%
     mutate(subtype = factor(subtype, levels = c("H3N2", "H1N1", "B"))) %>%
     ggplot(aes(x = From, y = proportion, color = subtype)) +
-    geom_vline(
-        data = vaccination_times,
-        aes(xintercept = year_vdate),
-        color = "gray80",
-        alpha = 0.3,
-        linewidth = 0.2
+    geom_rect(
+        data = round_vaccination_spans,
+        aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
+        inherit.aes = FALSE,
+        fill = "gray90"
     ) +
     geom_line(aes(group = subtype), linewidth = 0.7) +
     scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
@@ -135,7 +141,8 @@ HK_flu_timeseries <- HK_flu_surveillance %>%
         vjust = 0
     ) +
     geom_point(
-        data = drive_1_flu_infection_dates,
+        # Snap to ISO-week start for plotting only
+        data = drive_1_flu_infection_dates %>% mutate(cdate = snap_to_iso_week_start(cdate)),
         aes(x = cdate, y = 0.323),
         inherit.aes = FALSE,
         shape = 16,

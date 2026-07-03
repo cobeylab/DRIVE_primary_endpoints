@@ -526,13 +526,8 @@ make_inferred_infections_fig <- function(low_circ, time_of_infection_sub,
     count() %>%
     ungroup()
 
-  # Snap a Date vector to the first day (Monday) of its ISO week, preserving NAs.
-  snap_to_iso_week_start <- function(d) {
-    iso <- ISOweek::ISOweek(d)
-    ISOweek::ISOweek2date(ifelse(is.na(iso), NA_character_, paste0(iso, "-1")))
-  }
-
   # Snap timepoint_date and infection_date to the first day (Monday) of their ISO week for plotting
+  # (snap_to_iso_week_start is defined in R/base_functions.R)
   time_of_infection_sub <- time_of_infection_sub %>%
     mutate(timepoint_date = snap_to_iso_week_start(timepoint_date),
            infection_date = snap_to_iso_week_start(as.Date(as.numeric(infection_date))))
