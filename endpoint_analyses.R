@@ -400,7 +400,7 @@ save_plot("results/endpoint_analyses/Y4_postvax_H3N2_HAI.pdf", Y4_postvax_H3N2_H
 save_plot("results/endpoint_analyses/Y4_postvax_H3N2_HAI.png", Y4_postvax_H3N2_HAI, base_height = 8, base_width = 5, dpi = 300)
 
 Y4_fraction_titer_40_or_greater_H3N2_HAI <- plot_fraction_by_group(H3N2_HAI_titers, response_var = "titer_40_or_greater", year = 4) +
-  ylab(expression("Fraction of participants with HAI titers " >= "40"))
+  ylab(bquote("Fraction of participants with HAI titers" ~ symbol("\263") * "40"))
 
 save_plot(
   "results/endpoint_analyses/Y4_fraction_titer_40_or_greater_H3N2_HAI.pdf",
