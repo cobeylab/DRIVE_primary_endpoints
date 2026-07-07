@@ -181,10 +181,10 @@ HK_flu_timeseries <- HK_flu_surveillance %>%
 
 save_plot("results/HK_flu_surveillance_timeseries.pdf",
           HK_flu_timeseries,
-          base_height = 2.3, base_width = 4.25)
+          base_height = 1.9, base_width = 4.25)
 save_plot("results/HK_flu_surveillance_timeseries.svg",
           HK_flu_timeseries,
-          base_height = 2.3, base_width = 4.25)          
+          base_height = 1.9, base_width = 4.25)          
 
 
 #====== Analysis of FRNT/HAI titers ======
