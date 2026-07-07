@@ -97,8 +97,17 @@ titers %>%
 
 last_y3d30_date <- titers %>%
   filter(timepoint == 30, year == 3) %>%
-  filter(timepoint_date == max(timepoint_date)) %>% 
+  filter(timepoint_date == max(timepoint_date)) %>%
   pull(timepoint_date)
+
+# Year labels centered within each calendar year, to be used in place of
+# scale_x_date's default labels (which sit directly under the Jan 1 tick).
+# Centered on the full calendar year (not the span of available data), so a
+# partial final year is labeled at the same relative position as full years.
+HK_year_label_positions <- HK_flu_surveillance %>%
+    filter(Year >= 2019) %>%
+    distinct(Year) %>%
+    mutate(x = ymd(paste0(Year, "-01-01")) + (ymd(paste0(Year + 1, "-01-01")) - ymd(paste0(Year, "-01-01"))) / 2)
 
 HK_flu_timeseries <- HK_flu_surveillance %>%
     select(Year, Week, From, To, matches("proportion")) %>%
@@ -120,8 +129,8 @@ HK_flu_timeseries <- HK_flu_surveillance %>%
         fill = "gray90"
     ) +
     geom_line(aes(group = subtype), linewidth = 0.7) +
-    scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
-    xlab("Year") +
+    scale_x_date(date_breaks = "1 year", labels = NULL) +
+    xlab(NULL) +
     ylab("Respiratory specimens positive\nfor influenza in Hong Kong") +
     scale_color_manual(name = "", values = subtype_colors) +
     scale_y_continuous(labels = scales::percent_format(accuracy = 1), breaks = seq(0, 0.3, 0.1)) +
@@ -130,7 +139,7 @@ HK_flu_timeseries <- HK_flu_surveillance %>%
         legend.position = "top",
         legend.justification = "left",
         legend.box = "horizontal",
-        legend.box.spacing = margin(7.5)
+        legend.box.spacing = margin(0.3)
     ) +
     geom_text(
         data = midpoint_vaccination_dates %>% mutate(y = if_else(year %in% c(3, 5), 0.265, 0.29)),
@@ -158,6 +167,15 @@ HK_flu_timeseries <- HK_flu_surveillance %>%
         size = default_figure_font_size,
         size.unit = "pt",
         lineheight = 0.8
+    ) +
+    geom_text(
+        data = HK_year_label_positions,
+        aes(x = x, y = -Inf, label = Year),
+        inherit.aes = FALSE,
+        color = "black",
+        size = default_figure_font_size,
+        size.unit = "pt",
+        vjust = 1.6
     ) +
     coord_cartesian(ylim = c(NA, 0.3), clip = "off")
 

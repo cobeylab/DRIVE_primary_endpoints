@@ -868,10 +868,10 @@ plot_fraction_by_group <- function(input_data, response_var, year,
   
   
   if(response_var == "fourfold_rise_or_greater"){
-    ylabel <- expression("Fraction of participants with " >= "4-fold rise")
+    ylabel <- expression("Fraction of participants with " >= " 4-fold rise")
   }else{
     stopifnot(response_var == "titer_40_or_greater")
-    ylabel <- expression("Fraction of participants with titers " >= "40")
+    ylabel <- expression("Fraction of participants with titers " >= " 40")
   }
   
   plot_data <- get_fraction_by_group(input_data %>% filter(timepoint != 0, timepoint != 365),
