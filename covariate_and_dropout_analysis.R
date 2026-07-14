@@ -606,3 +606,23 @@ write.csv(final_df_Y1, paste0(output_dir, "/group_characteristics_Y1.csv"), row.
 write.csv(final_df_Y2, paste0(output_dir, "/group_characteristics_Y2.csv"), row.names = F)
 write.csv(final_df_Y3, paste0(output_dir, "/group_characteristics_Y3.csv"), row.names = F)
 write.csv(final_df_Y4, paste0(output_dir, "/group_characteristics_Y4.csv"), row.names = F)
+
+
+# Exporting de-identified data for sharing
+dir.create("results/data_sharing/", showWarnings = F)
+
+deid_covariate_data_all_enrolled <- covariate_data_drive1 %>%
+  select(pID, age_group_y1, BMI, sex, income, edu, asthma, smoking, superparticipant_status,
+         matches('inf'), matches('cov2'), dropout) %>%
+  rename(PCR_confirmed_cov2_during_study = infection_status_cov2,
+         PCR_confirmed_flu_during_study = infection_status_flu,
+         cov2_vaccination_during_study = cov2_vax_status) %>%
+  left_join(treatment_assignment %>%
+             select(pID, treatment_Y4)) %>%
+  rename(intervention = treatment_Y4) %>%
+  select(pID, intervention, everything()) %>%
+  mutate(enrolled_Y2 = pID %in% covariates_after_drop_outs$Y2_enrolled$pID,
+         enrolled_Y3 = pID %in% covariates_after_drop_outs$Y3_enrolled$pID,
+         enrolled_Y4 = pID %in% covariates_after_drop_outs$Y4_enrolled$pID)
+
+write_csv(deid_covariate_data_all_enrolled, file = "results/data_sharing/covariate_data_all_enrolled.csv")
