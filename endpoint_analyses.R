@@ -482,3 +482,10 @@ HAI_H3N2_year4 <- H3N2_HAI_titers %>%
   select(pID, year, treatment, timepoint, subtype, strain, titer_type, titer, measurement_1, measurement_2)
 stopifnot(HAI_H3N2_year4 %>% group_by(pID, year, timepoint, strain) %>% count() %>% filter(n > 1) %>% nrow() == 0)
 write_csv(HAI_H3N2_year4, file = "results/data_sharing/HAI_H3N2_year4.csv")
+
+# Luminex data
+luminex_exported <- luminex_vax_strains %>%
+  filter(year >= 3) %>%
+  select(pID, year, treatment, timepoint, subtype, strain, luminex_r1, luminex_r2, luminex)
+stopifnot(luminex_exported %>% group_by(pID, year, timepoint, strain) %>% count() %>% filter(n > 1) %>% nrow() == 0)
+write_csv(luminex_exported, file = "results/data_sharing/luminex.csv")
