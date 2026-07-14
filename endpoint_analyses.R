@@ -438,6 +438,8 @@ save_plot("results/endpoint_analyses/luminex_vs_titers.pdf", luminex_vs_titers_p
 save_plot("results/endpoint_analyses/luminex_vs_titers.png", luminex_vs_titers_plot, base_height = 8, base_width = 8, dpi = 300)
 
 # Exporting de-identified data
+dir.create("results/data_sharing", showWarnings = F)
+
 timepoints_and_prior_infections <- titers %>%
   select(pID, year, treatment, timepoint, ndays_since_year_vax, matches('infection_before_sample')) %>%
   select(-matches("recent"), -matches("subtype_matched")) %>%
