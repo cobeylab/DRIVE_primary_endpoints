@@ -436,3 +436,19 @@ save_plot("results/endpoint_analyses/Y3_postvax_luminex_vax_strains.png",
 luminex_vs_titers_plot <- plot_luminex_vs_titer_correlations(titers, luminex_vax_strains)
 save_plot("results/endpoint_analyses/luminex_vs_titers.pdf", luminex_vs_titers_plot, base_height = 8, base_width = 8)
 save_plot("results/endpoint_analyses/luminex_vs_titers.png", luminex_vs_titers_plot, base_height = 8, base_width = 8, dpi = 300)
+
+# Exporting de-identified data
+timepoints_and_prior_infections <- titers %>%
+  select(pID, year, treatment, timepoint, ndays_since_year_vax, matches('infection_before_sample')) %>%
+  select(-matches("recent"), -matches("subtype_matched")) %>%
+  unique() %>%
+  mutate(binned_days_since_intervention = case_when(
+    timepoint == 30 & ndays_since_year_vax < 28  ~ "<28 days",
+    timepoint == 30 & ndays_since_year_vax >= 28 & ndays_since_year_vax <= 42 ~ "28-42 days",
+    timepoint == 30 & ndays_since_year_vax > 42  ~ ">42 days"
+  )) %>%
+  select(pID, year, treatment, timepoint, binned_days_since_intervention, 
+         matches("PCR"), matches("NAI"))
+
+write_csv(timepoints_and_prior_infections, file = "results/data_sharing/timepoints_and_prior_infections.csv")
+
