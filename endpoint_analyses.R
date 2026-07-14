@@ -452,3 +452,33 @@ timepoints_and_prior_infections <- titers %>%
 
 write_csv(timepoints_and_prior_infections, file = "results/data_sharing/timepoints_and_prior_infections.csv")
 
+# Main HAI titers (i.e., for H1N1 and influenza B)
+HAI_titers_main <- titers %>%
+  flag_vaccine_strains() %>%
+  filter(is_vaccine_strain) %>%
+  filter(titer_type == "HAI") %>%
+  select(pID, year, treatment, timepoint, subtype, strain, titer_type, titer)
+
+stopifnot(HAI_titers_main %>% group_by(pID, year, timepoint, strain) %>% count() %>% filter(n > 1) %>% nrow() == 0)
+write_csv(HAI_titers_main, file = "results/data_sharing/HAI_titers_main.csv")
+
+
+# Main FRNT titers (i.e., for H3N2)
+# Exporting FRNT from this object because it includes the replicated measurements
+FRNT_titers_main <- FRNT_titers %>%
+  flag_vaccine_strains() %>%
+  filter(is_vaccine_strain) %>%
+  get_d365_from_next_year_d0() %>%
+  filter(year >= 2) %>%
+  mutate(titer_type = "FRNT", subtype = "H3N2") %>%
+  annotate_with_treatment(treatment_assignment) %>%
+  select(pID, year, treatment, timepoint, subtype, strain, titer_type, titer, FRNT_assay_1, FRNT_assay_2)
+
+stopifnot(FRNT_titers_main %>% group_by(pID, year, timepoint, strain) %>% count() %>% filter(n > 1) %>% nrow() == 0)
+write_csv(FRNT_titers_main, file = "results/data_sharing/FRNT_titers_main.csv")
+
+# HAI titers to H3N2
+HAI_H3N2_year4 <- H3N2_HAI_titers %>%
+  select(pID, year, treatment, timepoint, subtype, strain, titer_type, titer, measurement_1, measurement_2)
+stopifnot(HAI_H3N2_year4 %>% group_by(pID, year, timepoint, strain) %>% count() %>% filter(n > 1) %>% nrow() == 0)
+write_csv(HAI_H3N2_year4, file = "results/data_sharing/HAI_H3N2_year4.csv")

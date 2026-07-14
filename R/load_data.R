@@ -311,7 +311,7 @@ read_HAI_titers_to_H3N2 <- function(H3N2_HAI_file, serum_samples){
     mutate(titer = sqrt(SG_Titer * GL_Titer),
            log2_titer = log2(titer),
            titer_type = "HAI") %>%
-    select(-SG_Titer, -GL_Titer) %>%
+    rename(measurement_1 = SG_Titer, measurement_2 = GL_Titer) %>%
     rename(sid = sample_id) %>%
     left_join(serum_samples %>%
                select(sid, pID, year, timepoint), by = join_by(sid)) %>%
